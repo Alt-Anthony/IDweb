@@ -1,4 +1,42 @@
 body {
-    color: purple;
-    background-color: #d8da3d
+    font-family: sans-serif;
+    max-width: 700px;
+    margin: 20px auto;
+    background-color: #a9a9c3;
+    color: #333;
+    padding: 15px;
+}
+
+
+.navbar {
+    background-color: #ddd;
+    padding: 10px;
+    list-style: none;
+}
+
+.navbar li {
+    display: inline;
+    margin-right: 15px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+button {
+    margin-top: 15px;
+    padding: 8px 15px;
 }
