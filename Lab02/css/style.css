@@ -1,0 +1,111 @@
+/* Regla global box-sizing */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Centrado en pantalla */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e9ecef;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+h1 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: #333;
+}
+
+/* (card) centrada */
+.form-container {
+    background-color: #ffffff;
+    max-width: 480px;
+    width: 100%;
+    padding: 24px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Fieldset y Legend */
+fieldset {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+legend {
+    font-weight: bold;
+    padding: 0 6px;
+    color: #333;
+}
+
+/* Agrupaciones y etiquetas */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+label,
+span {
+    font-size: 14px;
+    color: #444;
+}
+
+/* Entradas de datos */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #aaa;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+/* Pseudo-clase :focus en campos de entrada */
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #0066cc;
+    box-shadow: 0 0 4px rgba(0, 102, 204, 0.4);
+}
+
+/* Botón de envío */
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: #0066cc;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* Pseudo-clases interactivas */
+button[type="submit"]:hover {
+    background-color: #004d99;
+}
+
+button[type="submit"]:active {
+    background-color: #003366;
+}
+
+button[type="submit"]:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
