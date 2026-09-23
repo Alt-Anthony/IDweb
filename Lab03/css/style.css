@@ -1,3 +1,25 @@
 .mi-navbar {
     background-color: rgb(20, 230, 216);
 }
+
+/* Hero Section: fila en escritorio (texto izq, imagen der) */
+.hero-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: aquamarine;
+}
+
+/* La imagen se ajusta a su columna */
+.hero-section img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Móvil: flex-direction en columna (la imagen queda debajo) */
+@media (max-width: 768px) {
+    .hero-section {
+        flex-direction: column;
+    }
+}
