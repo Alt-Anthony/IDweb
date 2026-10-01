@@ -1,34 +1,29 @@
-const form = document.querySelector('#todo-form');
-const input = document.querySelector('#todo-input');
-const list = document.querySelector('#todo-list');
-let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-function renderTasks() {
-    list.innerHTML = '';
-    tasks.forEach((task, index) => {
-        const li = document.createElement('li');
+const tareas = [];
+const formulario = document.getElementById('formulario');
+const listaTareas = document.getElementById('lista-tareas');
 
-        li.className = 'list-group-item d-flex justify-content-between align-items - center';
-        li.innerHTML = `
-<span>${task.text}</span>
-<button class="btn btn-danger btn-sm"
-onclick="deleteTask(${index})">Eliminar</button>
-
-`;
-        list.appendChild(li);
-    });
-}
-form.addEventListener("submit", (e) => {
+formulario.addEventListener('submit', (e) => {
     e.preventDefault();
-    const text = input.value.trim();
-    if (!text) return;
-    tasks.push({ text, completed: false });
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    input.value = '';
-    renderTasks();
+
+    tareas.push({
+        id: Date.now(),
+        titulo: document.getElementById('titulo').value,
+        curso: document.getElementById('curso').value,
+        fechaEntrega: document.getElementById('fechaEntrega').value,
+        completada: false
+    });
+
+    formulario.reset();
+    mostrarTareas();
 });
-function deleteTask(index) {
-    tasks.splice(index, 1);
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-    renderTasks();
+
+function mostrarTareas() {
+    //Recorre las tareas con map
+    listaTareas.innerHTML = tareas.map(tarea => `
+        <li>
+            <strong>${tarea.titulo}</strong>
+            <br> - Curso:${tarea.curso} 
+            <br> - Fecha de Entrega: ${tarea.fechaEntrega}
+        </li>
+    `).join('');
 }
-document.addEventListener('DOMContentLoaded', renderTasks);
