@@ -1,17 +1,18 @@
-const tareas = [];
+let tareas = [];
 const formulario = document.getElementById('formulario');
 const listaTareas = document.getElementById('lista-tareas');
 const alertas = document.getElementById('alerta')
+const filtroSelect = document.getElementById('filtro-tareas');
 
-
-function mostrarAlerta(mensaje) {
+function mostrarAlerta(mensaje, tipo = 'danger') {
     alertas.innerHTML = `
-        <div>
-            <span style="color: red;">${mensaje}</span>
-            <button onclick="document.getElementById('alerta').innerHTML = ''">Cerrar</button>
+        <div class="alert alert-${tipo} d-flex justify-content-between align-items-center mb-3">
+            <span>${mensaje}</span>
+            <button type="button" class="btn-close" onclick="document.getElementById('alerta').innerHTML = ''"></button>
         </div>
     `;
 }
+
 formulario.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -44,12 +45,46 @@ formulario.addEventListener('submit', (e) => {
 });
 
 function mostrarTareas() {
+    localStorage.setItem('tareas', JSON.stringify(tareas));
     //Recorre las tareas con map
-    listaTareas.innerHTML = tareas.map(tarea => `
-        <li>
-            <strong>${tarea.titulo}</strong>
-            <br> - Curso:${tarea.curso} 
-            <br> - Fecha de Entrega: ${tarea.fechaEntrega}
-        </li>
-    `).join('');
+    listaTareas.innerHTML = tareas.map(tarea => {
+        const tachado = tarea.completada ? 'text-decoration-line-through text-muted' : '';
+        const colorFondo = tarea.completada ? 'list-group-item-success' : 'list-group-item-light';
+        const btnClase = tarea.completada ? 'btn-warning' : 'btn-success';
+        const btnTexto = tarea.completada ? 'Marcar Pendiente' : 'Cerrar Tarea';
+
+        return `
+            <li class="list-group-item ${colorFondo}">
+                <div class="${tachado}">
+                    <strong>${tarea.titulo}</strong>
+                    <br> - Curso: ${tarea.curso} 
+                    <br> - Fecha de Entrega: ${tarea.fechaEntrega}
+                </div>
+                <div class="mt-2">
+                    <button class="btn ${btnClase} btn-sm me-1" onclick="alternarEstado(${tarea.id})">${btnTexto}</button>
+                    <button class="btn btn-danger btn-sm" onclick="borrarTarea(${tarea.id})">✖</button>
+                </div>
+            </li>
+        `;
+    }).join('');
 }
+function alternarEstado(id) {
+    const tarea = tareas.find(t => t.id === id);
+    if (tarea) {
+        tarea.completada = !tarea.completada;
+        mostrarTareas();
+    }
+}
+
+function borrarTarea(id) {
+    tareas = tareas.filter(t => t.id !== id);
+    mostrarTareas();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const tareasGuardadas = localStorage.getItem('tareas');
+    if (tareasGuardadas) {
+        tareas = JSON.parse(tareasGuardadas);
+    }
+    mostrarTareas();
+});
